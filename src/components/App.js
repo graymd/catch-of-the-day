@@ -11,6 +11,7 @@ class App extends React.Component {
     super();
 
     this.addFish = this.addFish.bind(this);
+    this.updateFish = this.updateFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
 
@@ -50,17 +51,23 @@ class App extends React.Component {
     JSON.stringify(nextState.order));
   }
 
-    addFish(fish){
-      //update our state
-      const fishes = {...this.state.fishes}; //make copy of current fishes
-      //add in our new fish
-      const timestamp = Date.now();
-      fishes[`fish-${timestamp}`] = fish;
-      // set state
-      this.setState({ fishes }) //same as { fishes: fishes }
-    }
+  addFish(fish){
+    //update our state
+    const fishes = {...this.state.fishes}; //make copy of current fishes
+    //add in our new fish
+    const timestamp = Date.now();
+    fishes[`fish-${timestamp}`] = fish;
+    // set state
+    this.setState({ fishes }) //same as { fishes: fishes }
+  }
 
-    loadSamples() {
+  updateFish(key, updatedFish) {
+    const fishes = {...this.state.fishes};
+    fishes[key] = updatedFish;
+    this.setState({ fishes })
+  }
+
+  loadSamples() {
       this.setState({
         fishes: sampleFishes
       })
@@ -91,8 +98,14 @@ class App extends React.Component {
         <Order
           fishes={this.state.fishes}
           order={this.state.order}
-          params={this.props.params} />
-        <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
+          params={this.props.params}
+        />
+        <Inventory
+          addFish={this.addFish}
+          loadSamples={this.loadSamples}
+          fishes={this.state.fishes}
+          updateFish={this.updateFish}
+        />
       </div>
     )
   }
