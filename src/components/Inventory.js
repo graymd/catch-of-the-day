@@ -17,6 +17,15 @@ class Inventory extends React.Component {
     }
   }
 
+  static PropTypes = {
+    fishes: React.PropTypes.object.isRequired,
+    updateFish: React.PropTypes.func.isRequired,
+    addFish: React.PropTypes.func.isRequired,
+    removeFish: React.PropTypes.func.isRequired,
+    loadSamples: React.PropTypes.func.isRequred,
+    storeId: React.PropTypes.string.isRequired
+  }
+
   componentDidMount() {
     base.onAuth((user) => {
       if (user) {
@@ -129,15 +138,6 @@ class Inventory extends React.Component {
       </div>
     )
   }
-}
-
-Inventory.PropTypes = {
-  fishes: React.PropTypes.object.isRequired,
-  updateFish: React.PropTypes.func.isRequired,
-  addFish: React.PropTypes.func.isRequired,
-  removeFish: React.PropTypes.func.isRequired,
-  loadSamples: React.PropTypes.func.isRequred,
-  storeId: React.PropTypes.string.isRequired
 }
 
 export default Inventory;
